@@ -64,7 +64,7 @@ const Header = () => {
             exit={{ opacity: 0, x: 200 }}
             className='flex items-center gap-10 ml-auto'>
 
-            {navItems.map((item) => (<li className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer'>{item}</li>))}
+            {navItems.map((item) => (<li className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer' key = {item}>{item}</li>))}
 
           </motion.ul>
           <div className="flex items-center relative">
@@ -129,7 +129,7 @@ const Header = () => {
             </p>
           </div>
         </div>
-        
+
         <Link to={'/'} className='flex items-center gap-8'>
           <img src={Logo} className='w-8 object-cover' alt="logo" />
           <p className='text-headingColor text-xl font-bold'>City</p>
@@ -161,7 +161,7 @@ const Header = () => {
 
                 <ul className='flex flex-col'>
 
-                  {navItems.map((item) => (<li className='text-base text-textColor hover:bg-slate-100 transition-all duration-100 ease-in-out cursor-pointer px-4 py-2' >{item}</li>))}
+                  {navItems.map((item) => (<li className='text-base text-textColor hover:bg-slate-100 transition-all duration-100 ease-in-out cursor-pointer px-4 py-2' key = {item} >{item}</li>))}
 
                 </ul>
 
