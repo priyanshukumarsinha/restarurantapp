@@ -4,9 +4,26 @@ import { MdShoppingBasket } from "react-icons/md";
 import Avatar from '../img/avatar.png'
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { app } from '../../firebase.config';
+
+import { useSelector, useDispatch } from 'react-redux';
+import {login as userLogin} from './store/authSlice'
 
 
 const Header = () => {
+
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  const userData = useSelector((state) => state.auth.user)
+  const dispatch = useDispatch()
+
+  const login = async() => {
+    const response = await signInWithPopup(auth, provider);
+    dispatch(userLogin(response.user.providerData[0]));
+  }
+
   return (
     <header className=' w-full p-6 px-16'>
       {/* Desktop & Tablet */}
@@ -32,7 +49,11 @@ const Header = () => {
             </div>
           </div>
         
-          <motion.img  whileTap={{scale:0.6}} src={Avatar} alt="userprofile" className='w-10 min-w-[40px] min-h-[40px] drop-shadow-xl cursor-pointer'/>
+          <div className="relative">
+          <motion.img  whileTap={{scale:0.6}} src={userData ? userData.payload.photoURL : Avatar} alt="userprofile" className='w-10 min-w-[40px] min-h-[40px] drop-shadow-xl cursor-pointer rounded-full'
+          onClick={login}
+          />
+          </div>
 
 
         </div>
