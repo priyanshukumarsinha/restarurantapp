@@ -1,8 +1,11 @@
 // Store for authentication
 import { createSlice } from '@reduxjs/toolkit'
+import { fetchUser } from '../../utils/fetchLocalStorageData'
+
+const userInfo = fetchUser()
 
 export const initialState = {
-    user : null, // initially no user, hence null
+    user : userInfo, // initially no user, hence null
 }
 
 const authSlice = createSlice({
@@ -10,12 +13,11 @@ const authSlice = createSlice({
     initialState,
     reducers : {
         login : (state, action) => {
-            state.user = action
+            state.user = action.payload
         },
-        // logout : (state) => {
-        //     // state.status = false,
-        //     state.user = null
-        // }
+        logout : (state) => {
+            state.user = null
+        }
     }
 })
 
