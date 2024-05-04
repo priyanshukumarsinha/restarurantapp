@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import {MdFastfood} from 'react-icons/md'
+import {MdAttachMoney, MdCloudUpload, MdDelete, MdFastfood, MdFoodBank} from 'react-icons/md'
 import { categories } from '../utils/data'
 import Loader from './Loader'
 
@@ -9,6 +9,7 @@ const CreateContainer = () => {
   const [calories, setCalories] = useState("")
   const [price, setPrice] = useState("")
   const [category, setCategory] = useState(null)
+  const [imageAsset, setImageAsset] = useState(null)
 
   // checks for error and reacts
   const [fields, setFields] = useState(false)
@@ -17,7 +18,11 @@ const CreateContainer = () => {
   // error Message
   const [msg, setMsg] = useState(null)
 
-  const [isloading, setIsLoading] = useState(true);
+  const [isloading, setIsLoading] = useState(false);
+
+  const uploadImage = () => {}
+  const deleteImage = () => {}
+  const saveDetails = () => {}
 
   return (
     <div className='w-full min-h-screen py-4 md:py-2 flex items-center justify-center '>
@@ -40,7 +45,7 @@ const CreateContainer = () => {
         <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
           <MdFastfood className='text-xl text-gray-700'/>
           <input type="text" required  value={title} placeholder='Give me a title...'
-          className='w-full h-full text-lg bg-transparent font-semibold outline-none border-none placeholder:text-gray-400 text-textColor'
+          className='w-full h-full text-lg bg-transparent outline-none border-none placeholder:text-gray-400 text-textColor'
           onChange={(e) => setTitle(e.target.value)}
           />
         </div>
@@ -57,7 +62,8 @@ const CreateContainer = () => {
             {categories && categories.map((category) => 
               <option 
                 key ={category.id} 
-                value={category.urlParamName}
+                onClick={() => setCategory(category.urlParamName)}
+                // value={category.name}
                 className='text-base outline-none border-0 capitalize bg-white text-headingColor'
               >
                 {category.name}
@@ -67,11 +73,73 @@ const CreateContainer = () => {
         </div>
 
         {/* Image */}
-        <div className="group flex justify-center items-center flex-cols border-2 border-dotted border-gray-300 w-full h-225 md:h-420 cursor-pointer rounded-lg ">
-            {isloading && (
-              <Loader />
-            )}
+        <div className="group flex justify-center items-center flex-col border-2 border-dotted border-gray-300 w-full h-225 md:h-420 cursor-pointer rounded-lg ">
+            {isloading ? <Loader /> : 
+              <>
+                {!imageAsset ? 
+                  <>
+                    <label className='w-full h-full flex flex-col items-center justify-center cursor-pointer'>
+                      <div className='w-full h-full flex flex-col items-center justify-center gap-2'>
+                        <MdCloudUpload  className='text-gray-500 text-3xl hover:text-gray-700'/>
+                        <p className='text-gray-500 hover:text-gray-700'>
+                          Click Here to Upload
+                        </p>
+                      </div>
+                      <input 
+                        type="file" 
+                        name='uploadimage' 
+                        accept='image/*' 
+                        className='w-0 h-0'
+                        onChange={uploadImage}
+                      />
+                    </label>
+                  </> 
+                  : 
+                  <>
+                    <div className="relative h-full">
+                      <img src={imageAsset} alt="uploaded image" className='w-full h-full object-cover'/>
+                      <button type='button' className='absolute bottom-3 right-10 p-3 rounded-full bg-red-500 text-xl cursor-pointer outline-none hover:shadow-md transition-all duration-100 ease-in-out'
+                      onClick={deleteImage}
+                      >
+                        <MdDelete className='text-white'/>
+                      </button>
+                    </div>
+                  </>
+                }
+              </>
+          }
         </div>
+
+          <div className="w-full flex flex-col md:flex-row items-center gap-3">
+          
+            {/* Calories */}
+            <div className='w-full py-2 border-b border-gray-300 flex items-center gap-2'>
+              <MdFoodBank className='tex-gray-700 text-2xl'/>
+              <input 
+              value={calories}
+              onChange={(e) => setCalories(e.target.value)}
+              type="text" required placeholder='Calories' className='w-full h-full text-lg bg-transparent outline-none border-none placeholder:text-gray-400 text-textColor' />
+            </div>
+
+            {/* Price */}
+            <div className='w-full py-2 border-b border-gray-300 flex items-center gap-2'>
+              <MdAttachMoney className='tex-gray-700 text-2xl'/> 
+              <input 
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              type="text" required placeholder='Price' className='w-full h-full text-lg bg-transparent outline-none border-none placeholder:text-gray-400 text-textColor' />
+            </div>
+          </div>
+
+          <div className="flex items-center w-full">
+            <button
+              type='button'
+              className='ml-0 md:ml-auto w-full md:w-auto border-none outline-none bg-emerald-500 px-12 py-2 rounded-lg text-lg text-white font-semibold'
+              onClick={saveDetails}
+            >
+              Save
+            </button>
+          </div>
 
       </div>
     </div>
