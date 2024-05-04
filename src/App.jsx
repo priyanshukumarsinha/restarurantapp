@@ -1,9 +1,26 @@
 import { Header, MainContainer, CreateContainer } from "./components"
 import {Routes, Route} from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion';
+import { getAllFoodItems } from "./utils/firebaseFunctions";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import {setFoodItems} from './components/store/foodSlice'
 
 
 function App() {
+
+  const dispatch = useDispatch();
+
+  const fetchData = async() =>{
+    await getAllFoodItems().then((data) => {
+      dispatch(setFoodItems(data))
+    })
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [])
+  
 
   return (
     <AnimatePresence mode="wait">

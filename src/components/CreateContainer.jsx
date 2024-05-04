@@ -6,6 +6,7 @@ import Loader from './Loader'
 import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 import { storage } from '../../firebase.config'
 import { saveItem } from '../utils/firebaseFunctions'
+import { useDispatch } from 'react-redux'
 
 const CreateContainer = () => {
   const [title, setTitle] = useState("")
@@ -22,6 +23,8 @@ const CreateContainer = () => {
   const [msg, setMsg] = useState(null)
 
   const [isloading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const uploadImage = (e) => {
     setIsLoading(true);
@@ -108,6 +111,8 @@ const CreateContainer = () => {
         setTimeout(() => {
           setFields(false);
         }, 4000);
+
+        fetchData();
       }
     } catch (error) {
       console.log(error);
@@ -127,6 +132,12 @@ const CreateContainer = () => {
     setCategory("Select Category");
     setImageAsset(null);
     setPrice("")
+  }
+
+  const fetchData = async() =>{
+    await getAllFoodItems().then((data) => {
+      dispatch(setFoodItems(data))
+    })
   }
 
   return (
