@@ -3,7 +3,31 @@ import F1 from '../img/f1.png'
 import C3 from '../img/c3.png'
 import Fi1 from '../img/fi1.png'
 
-const heroData = [
+
+export const navItems = [
+    {
+        id : 'home',
+        name : "Home",
+        path : '/'
+    },
+    {
+        id : 'menu',
+        name : "Menu",
+        path : '/menu'
+    },
+    {
+        id : 'aboutus',
+        name : "About Us",
+        path : '/aboutus'
+    },
+    {
+        id : 'service',
+        name : "Service",
+        path : '/service'
+    },
+]
+
+export const heroData = [
     {
         id:1,
         name: "Ice Cream",
@@ -34,4 +58,42 @@ const heroData = [
     },
 ]
 
-export default heroData
+export const categories = [
+    {
+        id:1,
+        name : "Chicken",
+        urlParamName : "chicken"
+    },
+    {
+        id:2,
+        name : "Curry",
+        urlParamName : "curry"
+    },
+    {
+        id:3,
+        name : "Rice",
+        urlParamName : "rice"
+    },
+    {
+        id:4,
+        name : "Fish",
+        urlParamName : "fish"
+    },
+    {
+        id:5,
+        name : "Fruits",
+        urlParamName : "fruits"
+    },
+    {
+        id:6,
+        name : "Icecreams",
+        urlParamName : "icrcreams"
+    },
+    {
+        id:7,
+        name : "Soft Drinks",
+        urlParamName : "drinks"
+    },
+
+]
+

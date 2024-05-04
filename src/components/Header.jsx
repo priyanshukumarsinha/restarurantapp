@@ -12,6 +12,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { login as userLogin } from './store/authSlice'
 import { logout as userLogout } from './store/authSlice'
 
+import { navItems } from '../utils/data';
+
 
 const Header = () => {
 
@@ -42,11 +44,6 @@ const Header = () => {
     localStorage.clear();
   }
 
-  const newItem = () => (
-    Navigate('/createItem')
-  )
-
-  const navItems = ["Home", "Menu", "About Us", "Service"];
 
   return (
     <header className='fixed w-full p-3 px-4 md:p-6 md:px-16 bg-inherit z-50'>
@@ -62,9 +59,17 @@ const Header = () => {
             initial={{ opacity: 0, x: 200 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 200 }}
-            className='flex items-center gap-10 ml-auto'>
+            className='flex items-center gap-10 ml-auto'
+            >
 
-            {navItems.map((item) => (<li className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer' key = {item}>{item}</li>))}
+            {
+              navItems && navItems.map((item) => (
+                <Link key = {item.id} to={item.path}>
+                  <li className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer' key = {item.id}>{item.name}</li>
+                </Link>
+              ))
+            }
+
 
           </motion.ul>
           <div className="flex items-center relative">
@@ -93,12 +98,14 @@ const Header = () => {
                   className='w-40 bg-gray-50 shadow-xl rounded-lg absolute top-12 right-0 flex flex-col'>
                   {
                     userData && userData.email === adminEmail && (
-                      <Link to={'/createItem'}>
-                        <p className='px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-base text-textColor'
-                        >New Item
-                          <MdAdd />
-                        </p>
-                      </Link>
+                        <Link to={'/createItem'}>
+                          <p 
+                          onClick={() => setIsMenu(false)}
+                          className='px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-base text-textColor'
+                          >New Item
+                            <MdAdd />
+                          </p>
+                        </Link>
                     )}
                   {userData &&
                     <p className='px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-base text-textColor'
@@ -151,17 +158,28 @@ const Header = () => {
                 className='w-40 bg-gray-50 shadow-xl rounded-lg absolute top-12 right-0 flex flex-col'>
                 {
                   userData && userData.email === adminEmail && (
-                    <Link to={'/createItem'}>
-                      <p className='px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-base text-textColor'
-                      >New Item
-                        <MdAdd />
-                      </p>
-                    </Link>
+                      <Link to={'/createItem'}>
+                        <p 
+                        onClick={() => setIsMenu(false)}
+                        className='px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-base text-textColor'
+                        >New Item
+                          <MdAdd />
+                        </p>
+                      </Link>
                   )}
 
                 <ul className='flex flex-col'>
 
-                  {navItems.map((item) => (<li className='text-base text-textColor hover:bg-slate-100 transition-all duration-100 ease-in-out cursor-pointer px-4 py-2' key = {item} >{item}</li>))}
+                {
+                  navItems && navItems.map((item) => (
+                    <Link key = {item.id} to={item.path}>
+                      <li className='text-base text-textColor hover:bg-slate-100 transition-all duration-100 ease-in-out cursor-pointer px-4 py-2' 
+                      key = {item.id} 
+                      onClick={() => setIsMenu(false)}
+                      >{item.name}</li>
+                    </Link>
+                  ))
+                }
 
                 </ul>
 
