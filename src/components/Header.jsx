@@ -49,7 +49,7 @@ const Header = () => {
   const navItems = ["Home", "Menu", "About Us", "Service"];
 
   return (
-    <header className=' w-full p-3 px-4 md:p-6 md:px-16'>
+    <header className='fixed w-full p-3 px-4 md:p-6 md:px-16 bg-inherit z-50'>
       {/* Desktop & Tablet */}
       <div className='hidden md:flex p-4'>
         <Link to={'/'} className='flex items-center gap-8'>
