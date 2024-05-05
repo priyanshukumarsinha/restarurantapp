@@ -131,7 +131,7 @@ const CreateContainer = () => {
   const clearData = () => {
     setTitle("");
     setCalories("");
-    setCategory("Select Category");
+    // setCategory("");
     setImageAsset(null);
     setPrice("")
   }

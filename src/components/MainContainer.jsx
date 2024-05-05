@@ -3,8 +3,10 @@ import HomeContainer from './HomeContainer'
 import { motion } from 'framer-motion'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import RowContainer from './RowContainer'
+import { useSelector } from 'react-redux'
 
 const MainContainer = () => {
+  const foodItems = useSelector((state) => state.food.foodItems);
   return (
     <div className='flex w-full h-auto flex-col items-center justify-center'>
       <HomeContainer />
@@ -24,7 +26,7 @@ const MainContainer = () => {
 
           </div>
         </div>
-        <RowContainer flag = {true}/>
+        <RowContainer flag = {true} data = {foodItems?.filter((item) => item.category === 'Fruits')}/>
       </section>
     </div>
   )
