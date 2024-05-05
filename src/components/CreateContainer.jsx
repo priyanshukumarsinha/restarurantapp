@@ -7,6 +7,8 @@ import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebas
 import { storage } from '../../firebase.config'
 import { saveItem } from '../utils/firebaseFunctions'
 import { useDispatch } from 'react-redux'
+import { setFoodItems } from './store/foodSlice'
+import { getAllFoodItems } from '../utils/firebaseFunctions'
 
 const CreateContainer = () => {
   const [title, setTitle] = useState("")
