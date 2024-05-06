@@ -3,8 +3,11 @@ import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { motion } from 'framer-motion'
 import { RiRefreshFill } from 'react-icons/ri'
 import { BiMinus, BiPlus } from 'react-icons/bi'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCartShow } from './store/cartSlice';
 
 const CartContainer = () => {
+    const dispatch = useDispatch()
     return (
         <div className='w-full md:w-375 h-[100vh] bg-white drop-shadow-md flex flex-col fixed top-0 right-0 z-[101]'>
 
@@ -12,7 +15,9 @@ const CartContainer = () => {
                 <motion.div
                     whileTap={{ scale: 0.75 }}
                 >
-                    <MdOutlineKeyboardBackspace className=' text-textColor text-3xl' />
+                    <MdOutlineKeyboardBackspace 
+                    onClick={() => dispatch(setCartShow(false))}
+                    className=' text-textColor text-3xl' />
 
                 </motion.div>
                 < motion.p whileTap={{ scale: 0.75 }} className='text-textColor text-lg font-semibold'>
@@ -20,7 +25,9 @@ const CartContainer = () => {
                 </motion.p>
                 <motion.p whileTap={{ scale: 0.75 }} className='flex items-center gap-2 p-1 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md cursor-pointer text-textColor text-base'>
                     Clear
-                    <RiRefreshFill />
+                    <RiRefreshFill 
+                    
+                    />
                 </motion.p>
             </div>
 
