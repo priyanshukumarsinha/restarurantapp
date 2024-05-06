@@ -1,21 +1,26 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { MdShoppingBasket } from 'react-icons/md'
 import { motion } from 'framer-motion'
 import NotFound from '../img/NotFound.svg'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCartItems } from './store/cartItemsSlice'
+import { fetchCart } from '../utils/fetchLocalStorageData'
 
 const RowContainer = ({ flag, data, scrollValue }) => {
     const rowContainer = useRef();
+    const [items, setItems] = useState(fetchCart())
     useEffect(()=>{
         rowContainer.current.scrollLeft = scrollValue;
     },[scrollValue])
   const cartItems = useSelector((state) => state.cartItems.cartItems)
     const dispatch = useDispatch();
-    const addToCart =(item) =>{
-        dispatch(setCartItems([...cartItems, item]))
-        localStorage.setItem('cartItems', JSON.stringify(([...cartItems, item])))
+    const addToCart =(items) =>{
+        dispatch(setCartItems(items))
+        localStorage.setItem('cartItems', JSON.stringify(items))
     }
+    useEffect(() => {
+        addToCart(items)
+    }, [items])
     return (
         <div 
         ref={rowContainer}
@@ -34,7 +39,7 @@ const RowContainer = ({ flag, data, scrollValue }) => {
                                 </motion.div>
                                 <motion.div whileTap={{ scale: 0.75 }} className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center cursor-pointer hover:shadow-md">
                                     <MdShoppingBasket 
-                                    onClick={()=> addToCart(item)}
+                                    onClick={()=> setItems([...cartItems, item])}
                                     className='text-white' />
                                 </motion.div>
                             </div>

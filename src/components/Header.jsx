@@ -23,7 +23,7 @@ const Header = () => {
 
   const userData = useSelector((state) => state.auth.user)
   const cartItems = useSelector((state) => state.cartItems.cartItems)
-  console.log(cartItems.length>0);
+  console.log(cartItems.length);
 
   const dispatch = useDispatch()
 
@@ -80,7 +80,7 @@ const Header = () => {
             <MdShoppingBasket
               onClick={() => dispatch(setCartShow(true))}
               className='text-textColor text-2xl cursor-pointer' />
-            {cartItems.length > 0 && (
+            {cartItems.length>0 && (
               <div className='w-5 h-5 rounded-full bg-red-500  ml-8 flex items-center justify-center absolute -top-2 -right-2'>
                 <p className='text-xs text-white  font-semibold'>
                   {cartItems.length}
@@ -141,10 +141,10 @@ const Header = () => {
             onClick={() => dispatch(setCartShow(true))}
             className='text-textColor text-2xl cursor-pointer' />
           
-          {cartItems.length > 0 && (
+          {cartItems?.length >0 && (
               <div className='w-5 h-5 rounded-full bg-red-500  ml-8 flex items-center justify-center absolute -top-2 -right-2'>
                 <p className='text-xs text-white  font-semibold'>
-                  2
+                  {cartItems.length}
                 </p>
               </div>
             )}

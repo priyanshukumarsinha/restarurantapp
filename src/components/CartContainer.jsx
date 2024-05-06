@@ -7,11 +7,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setCartShow } from './store/cartSlice';
 import { setCartItems } from './store/cartItemsSlice'
 import { fetchCart } from '../utils/fetchLocalStorageData'
+import EmptyCart from '../img/emptyCart.svg'
 
 const CartContainer = () => {
-    const cartItems = fetchCart();
-    console.log(cartItems)
-
+    const userData = useSelector((state) => state.auth.user)
+    const cartItems = useSelector((state) => state.cartItems.cartItems)
     const dispatch = useDispatch()
     return (
         <motion.div
@@ -41,13 +41,15 @@ const CartContainer = () => {
             </div>
 
             {/* bottom Section */}
-            <div className='w-full h-full bg-cartBg rounded-t-[2rem] flex flex-col'>
-                {/* cart Items Section */}
-                <div className="w-full h-340 md:h-42 px-6 py-10 flex flex-col gap-3 overflow-y-scroll scrollbar-none">
-                    {/* cart Items */}
 
-                    {cartItems?.length && (
-                        cartItems.map((item) => (
+
+            {cartItems?.length ? (
+                
+                <div className='w-full h-full bg-cartBg rounded-t-[2rem] flex flex-col'>
+                        {/* cart Items Section */}
+                        <div className="w-full h-340 md:h-42 px-6 py-10 flex flex-col gap-3 overflow-y-scroll scrollbar-none">
+                            {/* cart Items */}
+                        {cartItems.map((item) => (
                             <div key={item.id} className='w-full p-1 px-2 rounded-lg bg-cartItem flex items-center gap-2'>
                                 <img src={item.imageURL} className='w-20 h-20 ' alt="" />
                                 {/* name section */}
@@ -63,7 +65,7 @@ const CartContainer = () => {
                                 {/* Button Section */}
                                 <div className="group flex items-center gap-2 ml-auto cursor-pointer">
                                     <motion.div
-                                        whileTap={{ scale: 7.5 }}
+                                        whileTap={{ scale: 0.75 }}
                                     >
                                         <BiMinus className='text-gray-50' />
                                     </motion.div>
@@ -71,41 +73,67 @@ const CartContainer = () => {
                                         {item.quantity}
                                     </p>
                                     <motion.div
-                                        whileTap={{ scale: 7.5 }}
+                                        whileTap={{ scale: 0.75 }}
                                     >
                                         <BiPlus className='text-gray-50' />
                                     </motion.div>
                                 </div>
                             </div>
-                        ))
-                    )}
+                        ))}
+                        </div>
+                        {/* cart Total Section */}
+                        <div className='w-full  flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2'>
+                            <div className="w-full flex items-center justify-between">
+                                <p className='text-gray-400 text-lg'>Sub Total</p>
+                                <p className='text-gray-400 text-lg'>$ 8.5</p>
+                            </div>
+                            <div className="w-full flex items-center justify-between">
+                                <p className='text-gray-400 text-lg'>Delivery</p>
+                                <p className='text-gray-400 text-lg'>$ 2.5</p>
+                            </div>
+                            <div className="w-full border-b border-gray-600 my-2"></div>
+                            <div className='w-full flex items-center justify-between'>
+                                <p className="text-gray-200 text-xl font-semibold">Total</p>
+                                <p className="text-gray-200 text-xl font-semibold">$ 11.5</p>
+                            </div>
+                            {userData ? (
+                                <motion.button
+                                whileTap={{ scale: 0.8 }}
+                                type='button'
+                                className='w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg '
+                            >
+                                Check Out
+                            </motion.button>
+                            ):
+                            (
+                                <motion.button
+                                whileTap={{ scale: 0.8 }}
+                                type='button'
+                                className='w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg '
+                            >
+                                Login to Check Out
+                            </motion.button>
+                            )
+                        
+                        }
+                        </div>
+                    </div>
+                
+            )
+                :
+                (
+                    <div className="w-full h-full flex flex-col items-center justify-center gap-6">
+                        <img src={EmptyCart} className='w-300' alt="" />
+                        <p className='text-xl'>
+                            Add some items to Your Cart
+                        </p>
+                    </div>
+                )
+            }
 
 
-                </div>
-                {/* cart Total Section */}
-                <div className='w-full  flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2'>
-                    <div className="w-full flex items-center justify-between">
-                        <p className='text-gray-400 text-lg'>Sub Total</p>
-                        <p className='text-gray-400 text-lg'>$ 8.5</p>
-                    </div>
-                    <div className="w-full flex items-center justify-between">
-                        <p className='text-gray-400 text-lg'>Delivery</p>
-                        <p className='text-gray-400 text-lg'>$ 2.5</p>
-                    </div>
-                    <div className="w-full border-b border-gray-600 my-2"></div>
-                    <div className='w-full flex items-center justify-between'>
-                        <p className="text-gray-200 text-xl font-semibold">Total</p>
-                        <p className="text-gray-200 text-xl font-semibold">$ 11.5</p>
-                    </div>
-                    <motion.button
-                        whileTap={{ scale: 0.8 }}
-                        type='button'
-                        className='w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg '
-                    >
-                        Check Out
-                    </motion.button>
-                </div>
-            </div>
+
+
         </motion.div>
     )
 }
