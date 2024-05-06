@@ -5,6 +5,7 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import RowContainer from './RowContainer'
 import { useSelector } from 'react-redux'
 import MenuContainer from './MenuContainer'
+import CartContainer from './CartContainer'
 
 const MainContainer = () => {
   const foodItems = useSelector((state) => state.food.foodItems);
@@ -48,6 +49,7 @@ const MainContainer = () => {
         flag = {true} data = {foodItems?.filter((item) => item.category === 'Fruits')}/>
       </section>
       <MenuContainer />
+      <CartContainer />
     </div>
   )
 }
