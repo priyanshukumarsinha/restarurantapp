@@ -9,7 +9,11 @@ import { setCartShow } from './store/cartSlice';
 const CartContainer = () => {
     const dispatch = useDispatch()
     return (
-        <div className='w-full md:w-375 h-[100vh] bg-white drop-shadow-md flex flex-col fixed top-0 right-0 z-[101]'>
+        <motion.div 
+        initial= {{opacity: 0, x: 200}}
+        animate= {{opacity: 1, x: 0}}
+        exit= {{opacity: 0, x: 200}}
+        className='w-full md:w-375 h-[100vh] bg-white drop-shadow-md flex flex-col fixed top-0 right-0 z-[101]'>
 
             <div className="w-full flex items-center justify-between p-4 cursor-pointer">
                 <motion.div
@@ -86,13 +90,13 @@ const CartContainer = () => {
                     <motion.button
                         whileTap={{scale : 0.8}}
                         type='button'
-                        className='w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg transition-all duration-100 ease-in-out'
+                        className='w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg '
                     >
                         Check Out
                     </motion.button>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

@@ -23,7 +23,7 @@ const MenuContainer = () => {
                             onClick={() => setFilter(category.urlParamName)}
                             key= {category.id} className= {`group ${filter === category.urlParamName ? 'bg-cartNumBg' : 'bg-card'} w-24 min-w-[94px] h-28 cursor-pointer rounded-lg shadow-lg drop-shadow-xl backdrop-blur-lg flex flex-col gap-3 items-center justify-center hover:bg-cartNumBg`}>
                                 <div className= {`w-10 h-10 rounded-full  group-hover:bg-white flex items-center justify-center ${filter === category.urlParamName ? 'bg-white' : 'bg-cartNumBg'}`}>
-                                    <IoFastFood className= {` shadow-lg group-hover:text-textColor text-lg ${filter === category.urlParamName ? 'text-textColor' : 'text-carwd'} `} />
+                                    <IoFastFood className= {` shadow-lg  group-hover:text-textColor text-lg ${filter === category.urlParamName ? 'text-textColor' : 'text-white'} `} />
                                 </div>
                                 <p className= {`text-sm group-hover:text-white ${filter === category.urlParamName ? 'text-white' : 'text-textColor'} `}>
                                     {category.name}
