@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { MdShoppingBasket } from 'react-icons/md'
 import { motion } from 'framer-motion'
+import NotFound from '../img/NotFound.svg'
 
 const RowContainer = ({ flag, data, scrollValue }) => {
     const rowContainer = useRef();
@@ -10,15 +11,19 @@ const RowContainer = ({ flag, data, scrollValue }) => {
     return (
         <div 
         ref={rowContainer}
-        className={`w-full my-12 flex items-center scroll-smooth gap-3 ${flag ? 'overflow-x-scroll scrollbar-none' : 'overflow-x-hidden flex-wrap'}`}>
-            {data &&
+        className={`w-full my-12 flex items-center scroll-smooth gap-3 ${flag ? 'overflow-x-scroll scrollbar-none' : 'overflow-x-hidden flex-wrap justify-center'}`}>
+            {data?.length ?
                 data.map((item) => (
                     (
                         <div key={item?.id} className="w-275 min-w-[275px] bg-cardOverlay border-gray-100 rounded-lg py-3 px-4 my-[70px] md:w-300 md:min-w-[300px] h-[175px] backdrop-blur-lg hover:drop-shadow-lg flex flex-col items-center justify-evenly relative">
                             <div className="w-full flex items-center justify-end">
-                                <motion.img
-                                    whileHover={{ scale: 1.2 }}
-                                    className='w-40 -mt-8 drop-shadow-2xl absolute left-2' src={item?.imageURL} alt="fruit image" />
+                                <motion.div whileHover={{ scale: 1.2 }}
+                                className='w-40  -mt-8 drop-shadow-2xl absolute left-2' 
+                                >
+                                <img 
+                                className='w-full max-h-[200px] h-full object-contain'
+                                src={item?.imageURL} alt="fruit image" />
+                                </motion.div>
                                 <motion.div whileTap={{ scale: 0.75 }} className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center cursor-pointer hover:shadow-md">
                                     <MdShoppingBasket className='text-white' />
                                 </motion.div>
@@ -39,6 +44,14 @@ const RowContainer = ({ flag, data, scrollValue }) => {
                         </div>
                     )
                 ))
+            
+                :
+                (
+                    <div className="w-full flex items-center justify-center flex-col">
+                        <img src={NotFound} className= "w-340" alt="" />
+                        <p className='text-xl text-headingColor font-semibold'>Items Not Available</p>
+                    </div>
+                )
             }
         </div>
     )

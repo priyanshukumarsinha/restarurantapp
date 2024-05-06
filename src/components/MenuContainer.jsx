@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import { IoFastFood } from 'react-icons/io5'
 import { categories } from '../utils/data';
 import { motion } from 'framer-motion';
+import RowContainer from './RowContainer';
+import { useSelector } from 'react-redux';
 
 const MenuContainer = () => {
     const [filter, setFilter] = useState("chicken");
+    const foodItems = useSelector((state) => state.food.foodItems);
     return (
         <section className='w-full p-4 my-6'>
             <div className="w-full flex flex-col items-center justify-center">
@@ -29,7 +32,9 @@ const MenuContainer = () => {
                         ))
                     }
                 </div>
-
+                <div className='w-full '>
+                    <RowContainer flag= {false} data={foodItems?.filter((data) =>data.category === filter.charAt(0).toUpperCase() + filter.slice(1))}/>
+                </div>
             </div>
         </section>
     )
