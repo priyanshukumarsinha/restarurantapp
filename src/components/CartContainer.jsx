@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { motion } from 'framer-motion'
 import { RiRefreshFill } from 'react-icons/ri'

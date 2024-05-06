@@ -11,6 +11,7 @@ import { app } from '../../firebase.config';
 import { useSelector, useDispatch } from 'react-redux';
 import { login as userLogin } from './store/authSlice'
 import { logout as userLogout } from './store/authSlice'
+import { setCartShow } from './store/cartSlice';
 
 import { navItems } from '../utils/data';
 
@@ -73,7 +74,9 @@ const Header = () => {
 
           </motion.ul>
           <div className="flex items-center relative">
-            <MdShoppingBasket className='text-textColor text-2xl cursor-pointer' />
+            <MdShoppingBasket 
+            onClick={() => dispatch(setCartShow(true))}
+            className='text-textColor text-2xl cursor-pointer' />
             <div className='w-5 h-5 rounded-full bg-red-500  ml-8 flex items-center justify-center absolute -top-2 -right-2'>
               <p className='text-xs text-white  font-semibold'>
                 2
@@ -129,7 +132,9 @@ const Header = () => {
       {/* Mobile */}
       <div className='flex md:hidden p-4 justify-between items-center'>
         <div className="flex items-center relative">
-          <MdShoppingBasket className='text-textColor text-2xl cursor-pointer' />
+          <MdShoppingBasket 
+          onClick={() => dispatch(setCartShow(true))}
+          className='text-textColor text-2xl cursor-pointer' />
           <div className='w-5 h-5 rounded-full bg-red-500  ml-8 flex items-center justify-center absolute -top-2 -right-2'>
             <p className='text-xs text-white  font-semibold'>
               2

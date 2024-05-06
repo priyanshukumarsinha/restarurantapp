@@ -9,9 +9,10 @@ import CartContainer from './CartContainer'
 
 const MainContainer = () => {
   const foodItems = useSelector((state) => state.food.foodItems);
+  const cartShow = useSelector((state) => state.cart.cartShow)
   const [scrollValue, setScrollValue] = useState(0);
   const scrollOffset = 1000
-  useEffect(()=>{}, [scrollValue])
+  useEffect(()=>{}, [scrollValue, cartShow])
 
   const scrollLeft =() =>{
     setScrollValue(scrollValue - scrollOffset)
@@ -49,7 +50,9 @@ const MainContainer = () => {
         flag = {true} data = {foodItems?.filter((item) => item.category === 'Fruits')}/>
       </section>
       <MenuContainer />
-      <CartContainer />
+      {cartShow && (
+        <CartContainer />
+      )}
     </div>
   )
 }
