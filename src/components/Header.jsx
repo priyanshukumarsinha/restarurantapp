@@ -39,8 +39,6 @@ const Header = () => {
       const response = await signInWithPopup(auth, provider);
       const userData = response.user.providerData[0]
       dispatch(userLogin(userData));
-      dispatch(setSubTotal(0));
-      dispatch(setCartItems(""));
       localStorage.setItem('user', JSON.stringify(userData))
       setIsMenu(false)
     }
@@ -49,6 +47,8 @@ const Header = () => {
   const logout = () => {
     setIsMenu(false)
     dispatch(userLogout())
+    // dispatch(setSubTotal(0));
+    // dispatch(setCartItems(""));
     localStorage.clear();
   }
 
