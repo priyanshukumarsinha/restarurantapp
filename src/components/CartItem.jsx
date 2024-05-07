@@ -34,8 +34,8 @@ const CartItem = ({ item }) => {
                 if (item.id === id) {
                     if (quantity > 1) {
                         newItems.push({ ...item, quantity: quantity })
-                        dispatch(setSubTotal(subTotal - Number(item.price)))
                     }
+                    dispatch(setSubTotal(subTotal - Number(item.price)))
                 }
                 else {
                     newItems.push(item)
