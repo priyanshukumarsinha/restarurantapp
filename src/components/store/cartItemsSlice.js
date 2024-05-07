@@ -14,6 +14,7 @@ const authSlice = createSlice({
     reducers : {
         setCartItems : (state, action) => {
             state.cartItems = action.payload
+            localStorage.setItem('cartItems', JSON.stringify(action.payload))
         }
     }
 })

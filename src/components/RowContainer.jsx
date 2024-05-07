@@ -5,6 +5,7 @@ import NotFound from '../img/NotFound.svg'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCartItems } from './store/cartItemsSlice'
 import { fetchCart } from '../utils/fetchLocalStorageData'
+import { setSubTotal } from './store/subTotalSlice'
 
 const RowContainer = ({ flag, data, scrollValue }) => {
     const rowContainer = useRef();
@@ -12,11 +13,11 @@ const RowContainer = ({ flag, data, scrollValue }) => {
     useEffect(()=>{
         rowContainer.current.scrollLeft = scrollValue;
     },[scrollValue])
-  const cartItems = useSelector((state) => state.cartItems.cartItems)
+    const cartItems = useSelector((state) => state.cartItems.cartItems)
+    const subTotal = useSelector((state) => state.subTotal.subTotal)
     const dispatch = useDispatch();
     const addToCart =(items) =>{
         dispatch(setCartItems(items))
-        localStorage.setItem('cartItems', JSON.stringify(items))
     }
     useEffect(() => {
         addToCart(items)
@@ -39,7 +40,7 @@ const RowContainer = ({ flag, data, scrollValue }) => {
                                 </motion.div>
                                 <motion.div whileTap={{ scale: 0.75 }} className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center cursor-pointer hover:shadow-md">
                                     <MdShoppingBasket 
-                                    onClick={()=> setItems([...cartItems, item])}
+                                    onClick={()=> {setItems([...cartItems, item]); dispatch(setSubTotal(subTotal + Number(item.price)))}}
                                     className='text-white' />
                                 </motion.div>
                             </div>
